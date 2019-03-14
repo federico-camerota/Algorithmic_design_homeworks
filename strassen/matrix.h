@@ -12,8 +12,10 @@ int naive_matrix_mult(float **C,
 
 float **allocate_matrix(const size_t rows,
                         const size_t cols);
-
+float **improved_allocate_matrix(const size_t rows,
+				 const size_t cols);
 void deallocate_matrix(float **A, const size_t rows);
+void improved_deallocate_matrix(float **A);
 
 int same_matrix(float **A, const size_t A_rows, const size_t A_cols,
 		float **B, const size_t B_rows, const size_t B_cols);

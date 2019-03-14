@@ -294,9 +294,9 @@ void improved_strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col
 
   float ***S=(float ***)malloc(sizeof(float **)*10);
   for (int i=0; i<10; i++) {
-    S[i] = allocate_matrix(n2, n2);
+    S[i] = improved_allocate_matrix(n2, n2);
   }
-  aux_matrix = allocate_matrix(n2,n2);
+  float **aux_matrix = improved_allocate_matrix(n2,n2);
 
   // S1 = B12 - B22
   sub_matrix_blocks(S[0],0,0,
@@ -457,13 +457,13 @@ void improved_strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col
 
 
   for (int i=0; i<10; i++) {
-    deallocate_matrix(S[i], n2);
+    improved_deallocate_matrix(S[i]);
   }
 
  // for (int i=0; i<4; i++) {
  //   deallocate_matrix(Slot[i], n2);
  // }
- deallocate_matrix(aux_matrix, n2);
+ improved_deallocate_matrix(aux_matrix);
 }
 
 void improved_strassen(float **C,

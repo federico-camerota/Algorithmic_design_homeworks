@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
   float **C0=allocate_matrix(n,n);
   float **C1=allocate_matrix(n,n);
-  float **C2=allocate_matrix(n,n);
+  float **C2=improved_allocate_matrix(n,n);
   float **A=allocate_matrix(n,n);
   float **B=allocate_matrix(n,n);
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 
   deallocate_matrix(C0,n);
   deallocate_matrix(C1,n);
-  deallocate_matrix(C2,n);
+  improved_deallocate_matrix(C2);
   deallocate_matrix(A,n);
   deallocate_matrix(B,n);
 

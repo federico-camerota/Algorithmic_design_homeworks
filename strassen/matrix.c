@@ -43,6 +43,22 @@ float **allocate_matrix(const size_t rows,
 
    return A;
 }
+float **improved_allocate_matrix(const size_t rows,
+                        const size_t cols)
+{
+   float **A=(float **)malloc(sizeof(float *)*rows);
+   float *data = (float *) calloc(cols*rows, sizeof(float));
+
+   for (size_t i=0; i<cols*rows; i += cols) {
+     A[i/cols] = data + i;
+   }
+
+   return A;
+}
+void improved_deallocate_matrix(float **A)
+{
+  free(A[0]);
+}
 
 void deallocate_matrix(float **A, const size_t rows)
 {
