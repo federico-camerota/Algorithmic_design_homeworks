@@ -1,10 +1,11 @@
 #include "chain_matrix_multiplication.h"
 #include <math.h>
 #include <stdlib.h>
+#include <limits.h>
 
-void chain_matrix_aux (int *p, float **m, float **s, size_t i, size_t j);
+void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j);
 
-void matrix_chain (int *p, size_t n, float **m, float **s){
+void matrix_chain (int *p, size_t n, size_t **m, size_t **s){
 
     for (size_t i=0; i < n; ++i){
     
@@ -20,12 +21,12 @@ void matrix_chain (int *p, size_t n, float **m, float **s){
     }
 }
 
-void chain_matrix_aux (int *p, float **m, float **s, size_t i, size_t j){
+void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j){
 
-    m[i][j] = INFINITY;
+    m[i][j] = ULONG_MAX;
     for (size_t k = i; k < j; ++k){
     
-	float q = m[i][k] + m[k+1][j] + p[i]*p[k+1]*p[j+1];
+	size_t q = m[i][k] + m[k+1][j] + p[i]*p[k+1]*p[j+1];
 	if ( q < m[i][j]){
 	
 	    m[i][j] = q;

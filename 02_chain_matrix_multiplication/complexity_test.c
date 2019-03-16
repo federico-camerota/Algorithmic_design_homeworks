@@ -8,15 +8,15 @@ double get_execution_time(const struct timespec b_time,
 
 int main(){
 
-    size_t k = 12;
+    size_t k = 10;
     size_t n_max = (1U << k);
     int p[n_max+1];
     for (size_t i = 0; i < n_max; ++i){
     
-	p[i] = rand() % 40;
+	p[i] = rand() % 20;
     }
-    float **m = improved_allocate_matrix(n_max,n_max);
-    float **s = improved_allocate_matrix(n_max, n_max);
+    size_t **m = improved_allocate_matrix(n_max,n_max);
+    size_t **s = improved_allocate_matrix(n_max, n_max);
 
     double elapsed[k];
     struct timespec b_time, e_time;

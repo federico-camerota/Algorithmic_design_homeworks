@@ -23,7 +23,7 @@ double get_execution_time(const struct timespec b_time,
                    (e_time.tv_nsec-b_time.tv_nsec)/1E9;
 }
 
-int main(int argc, char *argv[]) {
+int main() {
 
   const size_t n=1<<12;
 
@@ -43,11 +43,11 @@ int main(int argc, char *argv[]) {
   for (size_t i=1; i<=n; i*=2) {
     printf("%ld", i);
 
-//    clock_gettime(CLOCK_REALTIME, &b_time);
-//    naive_matrix_mult(C0, A, B, i, i, i, i);
-//    clock_gettime(CLOCK_REALTIME, &e_time);
-//
-//    printf("\t%lf", get_execution_time(b_time, e_time));
+    clock_gettime(CLOCK_REALTIME, &b_time);
+    naive_matrix_mult(C0, A, B, i, i, i, i);
+    clock_gettime(CLOCK_REALTIME, &e_time);
+
+    printf("\t%lf", get_execution_time(b_time, e_time));
 
     clock_gettime(CLOCK_REALTIME, &b_time);
     strassen(C1, A, B, i);

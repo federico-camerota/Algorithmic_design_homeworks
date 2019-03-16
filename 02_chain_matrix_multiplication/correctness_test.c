@@ -6,8 +6,8 @@ int main(){
 
     size_t n = 6;
     int p[7] = {30, 35, 15, 5, 10, 20, 25};
-    float **m = improved_allocate_matrix(n,n);
-    float **s = improved_allocate_matrix(n, n);
+    size_t **m = improved_allocate_matrix(n,n);
+    size_t **s = improved_allocate_matrix(n, n);
 
     matrix_chain (p, n, m, s);
     
@@ -16,7 +16,7 @@ int main(){
     
 	for (size_t j = 0; j < n; ++j){
 	
-	   printf("%.0f\t", m[i][j]); 
+	   printf("%lu\t", m[i][j]); 
 	}
 	putchar('\n');
     }

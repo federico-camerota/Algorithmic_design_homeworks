@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <math.h>
+#include "matrix.h"
 
-int naive_matrix_mult(float **C,
-                        float **A,
-                        float **B,
+int naive_matrix_mult(SCALAR_TYPE **C,
+                        SCALAR_TYPE **A,
+                        SCALAR_TYPE **B,
                         const size_t A_rows,
                         const size_t A_cols,
                         const size_t B_rows,
@@ -32,18 +33,18 @@ int naive_matrix_mult(float **C,
   return 0;
 }
 
-float **allocate_matrix(const size_t rows,
+SCALAR_TYPE **allocate_matrix(const size_t rows,
                         const size_t cols)
 {
-   float **A=(float **)malloc(sizeof(float *)*rows);
+   SCALAR_TYPE **A=(SCALAR_TYPE **)malloc(sizeof(SCALAR_TYPE *)*rows);
 
    for (size_t i=0; i<rows; i++) {
-     A[i]=(float *)malloc(sizeof(float)*cols);
+     A[i]=(SCALAR_TYPE *)malloc(sizeof(SCALAR_TYPE)*cols);
    }
 
    return A;
 }
-void deallocate_matrix(float **A, const size_t rows)
+void deallocate_matrix(SCALAR_TYPE **A, const size_t rows)
 {
   for (size_t i=0; i<rows; i++) {
     free(A[i]);
@@ -52,11 +53,11 @@ void deallocate_matrix(float **A, const size_t rows)
   free(A);
 }
 
-float **improved_allocate_matrix(const size_t rows,
+SCALAR_TYPE **improved_allocate_matrix(const size_t rows,
                         const size_t cols)
 {
-   float **A=(float **)malloc(sizeof(float *)*rows);
-   float *data = (float *) calloc(cols*rows, sizeof(float));
+   SCALAR_TYPE **A=(SCALAR_TYPE **)malloc(sizeof(SCALAR_TYPE *)*rows);
+   SCALAR_TYPE *data = (SCALAR_TYPE *) calloc(cols*rows, sizeof(SCALAR_TYPE));
 
    for (size_t i=0; i<cols*rows; i += cols) {
      A[i/cols] = data + i;
@@ -64,15 +65,15 @@ float **improved_allocate_matrix(const size_t rows,
 
    return A;
 }
-void improved_deallocate_matrix(float **A)
+void improved_deallocate_matrix(SCALAR_TYPE **A)
 {
   free(A[0]);
   free(A);
 }
 
 
-int same_matrix(float **A, const size_t A_rows, const size_t A_cols,
-		float **B, const size_t B_rows, const size_t B_cols)
+int same_matrix(SCALAR_TYPE **A, const size_t A_rows, const size_t A_cols,
+		SCALAR_TYPE **B, const size_t B_rows, const size_t B_cols)
 {
    if ((A_rows != B_rows) || (A_cols != B_cols)) {
      return 0;
@@ -88,13 +89,13 @@ int same_matrix(float **A, const size_t A_rows, const size_t A_cols,
 
    return 1;
 }
-void sum_matrix_blocks(float **C,
+void sum_matrix_blocks(SCALAR_TYPE **C,
                        const size_t C_f_row,
                        const size_t C_f_col,
-                       float ** A,
+                       SCALAR_TYPE ** A,
                        const size_t A_f_row,
                        const size_t A_f_col,
-                       float ** B,
+                       SCALAR_TYPE ** B,
                        const size_t B_f_row,
                        const size_t B_f_col,
                        const size_t n)
@@ -110,13 +111,13 @@ void sum_matrix_blocks(float **C,
   }
 }
 
-void sub_matrix_blocks(float **C,
+void sub_matrix_blocks(SCALAR_TYPE **C,
                        const size_t C_f_row,
                        const size_t C_f_col,
-                       float ** A,
+                       SCALAR_TYPE ** A,
                        const size_t A_f_row,
                        const size_t A_f_col,
-                       float ** B,
+                       SCALAR_TYPE ** B,
                        const size_t B_f_row,
                        const size_t B_f_col,
                        const size_t n)

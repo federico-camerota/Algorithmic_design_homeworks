@@ -5,9 +5,9 @@
 /*
  * Auxiliary function for the naive implementation of the matrix multiplication algorithm
  */
-void naive_aux(float **C, const size_t C_f_row, const size_t C_f_col,
-               float **A, const size_t A_f_row, const size_t A_f_col,
-               float **B, const size_t B_f_row, const size_t B_f_col,
+void naive_aux(SCALAR_TYPE **C, const size_t C_f_row, const size_t C_f_col,
+               SCALAR_TYPE **A, const size_t A_f_row, const size_t A_f_col,
+               SCALAR_TYPE **B, const size_t B_f_row, const size_t B_f_col,
                const size_t n)
 {
    for (size_t i=0; i<n; i++) {
@@ -25,9 +25,9 @@ void naive_aux(float **C, const size_t C_f_row, const size_t C_f_col,
 /*
  * Auxiliary function for the Strassen's algorithm
  */
-void strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col,
-               float **A, const size_t A_f_row, const size_t A_f_col,
-               float **B, const size_t B_f_row, const size_t B_f_col,
+void strassen_aux(SCALAR_TYPE **C, const size_t C_f_row, const size_t C_f_col,
+               SCALAR_TYPE **A, const size_t A_f_row, const size_t A_f_col,
+               SCALAR_TYPE **B, const size_t B_f_row, const size_t B_f_col,
                const size_t n)
 {
   if (n < (1<<6)) {
@@ -55,12 +55,12 @@ void strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col,
   const size_t BX1 = B_f_col;
   const size_t BX2 = B_f_col + n2;
 
-  float ***S=(float ***)malloc(sizeof(float **)*10);
+  SCALAR_TYPE ***S=(SCALAR_TYPE ***)malloc(sizeof(SCALAR_TYPE **)*10);
   for (int i=0; i<10; i++) {
     S[i] = allocate_matrix(n2, n2);
   }
 
-  float ***P=(float ***)malloc(sizeof(float **)*7);
+  SCALAR_TYPE ***P=(SCALAR_TYPE ***)malloc(sizeof(SCALAR_TYPE **)*7);
   for (int i=0; i<7; i++) {
     P[i] = allocate_matrix(n2, n2);
   }
@@ -222,8 +222,8 @@ void strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col,
 /*
  * Recursive implementation of the Strassen's algorithm
  */
-void strassen(float **C,
-      float **A, float **B, const size_t n)
+void strassen(SCALAR_TYPE **C,
+      SCALAR_TYPE **A, SCALAR_TYPE **B, const size_t n)
 {
   strassen_aux(C, 0, 0, A, 0, 0, B, 0, 0, n);
 }
@@ -231,9 +231,9 @@ void strassen(float **C,
 /*
  * Auxiliary function for the improved version of the Strassen's algorithm
  */
-void improved_strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col,
-               float **A, const size_t A_f_row, const size_t A_f_col,
-               float **B, const size_t B_f_row, const size_t B_f_col,
+void improved_strassen_aux(SCALAR_TYPE **C, const size_t C_f_row, const size_t C_f_col,
+               SCALAR_TYPE **A, const size_t A_f_row, const size_t A_f_col,
+               SCALAR_TYPE **B, const size_t B_f_row, const size_t B_f_col,
                const size_t n)
 {
   if (n < (1<<6)) {
@@ -261,11 +261,11 @@ void improved_strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col
   const size_t BX1 = B_f_col;
   const size_t BX2 = B_f_col + n2;
 
-  float ***S=(float ***)malloc(sizeof(float **)*10);
+  SCALAR_TYPE ***S=(SCALAR_TYPE ***)malloc(sizeof(SCALAR_TYPE **)*10);
   for (int i=0; i<10; i++) {
     S[i] = improved_allocate_matrix(n2, n2);
   }
-  float **aux_matrix = improved_allocate_matrix(n2,n2);
+  SCALAR_TYPE **aux_matrix = improved_allocate_matrix(n2,n2);
 
   // S1 = B12 - B22
   sub_matrix_blocks(S[0],0,0,
@@ -438,8 +438,8 @@ void improved_strassen_aux(float **C, const size_t C_f_row, const size_t C_f_col
 /*
  * Improved implementation of the Strassen's algorithm
  */
-void improved_strassen(float **C,
-      float **A, float **B, const size_t n)
+void improved_strassen(SCALAR_TYPE **C,
+      SCALAR_TYPE **A, SCALAR_TYPE **B, const size_t n)
 {
   improved_strassen_aux(C, 0, 0, A, 0, 0, B, 0, 0, n);
 }
