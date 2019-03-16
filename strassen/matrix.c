@@ -43,6 +43,15 @@ float **allocate_matrix(const size_t rows,
 
    return A;
 }
+void deallocate_matrix(float **A, const size_t rows)
+{
+  for (size_t i=0; i<rows; i++) {
+    free(A[i]);
+  }
+
+  free(A);
+}
+
 float **improved_allocate_matrix(const size_t rows,
                         const size_t cols)
 {
@@ -58,16 +67,9 @@ float **improved_allocate_matrix(const size_t rows,
 void improved_deallocate_matrix(float **A)
 {
   free(A[0]);
-}
-
-void deallocate_matrix(float **A, const size_t rows)
-{
-  for (size_t i=0; i<rows; i++) {
-    free(A[i]);
-  }
-
   free(A);
 }
+
 
 int same_matrix(float **A, const size_t A_rows, const size_t A_cols,
 		float **B, const size_t B_rows, const size_t B_cols)
