@@ -11,10 +11,11 @@ int main(){
     size_t k = 10;
     size_t n_max = (1U << k);
     int p[n_max+1];
-    for (size_t i = 0; i < n_max; ++i){
+    for (size_t i = 0; i <= n_max; ++i){
     
-	p[i] = rand() % 20;
+	p[i] = (rand() % 20) + 2;
     }
+
     size_t **m = improved_allocate_matrix(n_max,n_max);
     size_t **s = improved_allocate_matrix(n_max, n_max);
 
