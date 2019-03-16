@@ -1,24 +1,25 @@
-CC=gcc
+CC= gcc
 CCFLAGS= -Wall -Wextra
-complexity = complexity_test 
-correctness = correctness_test
-MATRIX_AUX = ../01_strassen/matrix.c
-HEADERS = chain_matrix_multiplication.h ../01_strassen/matrix.h
-FILES = chain_matrix_multiplication.c
+complexity= complexity_test.x 
+correctness= correctness_test.x
+MATRIX_AUX= ../01_strassen/matrix.c
+HEADERS= chain_matrix_multiplication.h ../01_strassen/matrix.h
+FILES= chain_matrix_multiplication.c
+SCALAR_MACRO = -DSCALAR_TYPE=size_t
 
-all: ${complexity}.x ${correctness_test}.x
+all: ${complexity} ${correctness}
 
-${complexity}.x: ${complexity}.c ${MATRIX_AUX} ${FILES}
-	${CC} -o $@ $^
+${complexity} : ${complexity:x=c} ${MATRIX_AUX} ${FILES}
+	${CC} -o $@ $^ ${SCALAR_MACRO} ${CCFLAGS}
 
-${complexity}.x: ${HEADERS}
+${complexity}: ${HEADERS}
 
-${correctness}.x: ${correctness}.c ${MATRIX_AUX} ${FILES}
-	${CC} -o $@ $^
+${correctness}: ${correctness:x=c} ${MATRIX_AUX} ${FILES}
+	${CC} -o $@ $^ ${SCALAR_MACRO} ${CCFLAGS}
 
-${correctness}.x: ${HEADERS}
+${correctness}: ${HEADERS}
 
 clean:
-	rm ${correctness}.x ${complexity}.x
+	rm ${correctness} ${complexity}
 
 .PHONY: clean all

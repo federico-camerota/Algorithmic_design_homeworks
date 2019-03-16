@@ -25,7 +25,7 @@ int main(){
     
 	for (size_t j = 0; j < n - 1; ++j){
 	
-	   printf("%.0f\t", s[i][j]); 
+	   printf("%lu\t", s[i][j]); 
 	}
 	putchar('\n');
     }
