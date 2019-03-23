@@ -1,7 +1,7 @@
 #include "chain_matrix_multiplication.h"
 #include <math.h>
 #include <stdlib.h>
-#include <limits.h>
+#include <stdint.h>
 
 void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j);
 
@@ -23,7 +23,7 @@ void matrix_chain (int *p, size_t n, size_t **m, size_t **s){
 
 void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j){
 
-    m[i][j] = ULONG_MAX;
+    m[i][j] = SIZE_MAX;
     for (size_t k = i; k < j; ++k){
     
 	size_t q = m[i][k] + m[k+1][j] + p[i]*p[k+1]*p[j+1];
