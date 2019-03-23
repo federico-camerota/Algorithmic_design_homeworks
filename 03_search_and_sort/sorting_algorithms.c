@@ -1,5 +1,5 @@
 #include "sorting_algorithms.h"
-#include <limits.h>
+#include <stdint.h>
 
 /////////////////////////
 // IS SORTED AUXILIARY FUNCTION
@@ -22,7 +22,7 @@
 	
 	    size_t j = i-1;
 	    ELEMENT_TYPE tmp = items[i];
-	    while ( j < ULONG_MAX && items[j] > tmp){
+	    while ( j < SIZE_MAX && items[j] > tmp){
 	    
 		items[j+1] = items[j];
 		j--;
