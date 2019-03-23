@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 void insertion_sort (ELEMENT_TYPE *items, size_t n);
-void quick_sort (ELEMENT_TYPE *items, size_t n);
+void quick_sort (ELEMENT_TYPE *items, int n);
 int is_sorted (ELEMENT_TYPE *items, size_t n);
 
 #endif

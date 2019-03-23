@@ -7,6 +7,10 @@ SORT_FILES= sorting_algorithms.c
 
 all: ${searching} ${sorting}
 
+sort : ${sorting}
+
+search : ${searching}
+
 ${searching} : ${searching:x=c} ${MATRIX_AUX} ${SEARCH_FILES}
 	${CC} -o $@ $^  ${CCFLAGS}
 
@@ -16,6 +20,5 @@ ${sorting}: ${sorting:x=c} ${MATRIX_AUX} ${SORT_FILES}
 
 
 clean:
-	rm ${sorting} ${searching}
-
+	rm *.x
 .PHONY: clean all

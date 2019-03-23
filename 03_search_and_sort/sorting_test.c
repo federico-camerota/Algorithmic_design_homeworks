@@ -12,7 +12,8 @@ int main(){
 
     printf("Before sorting\n");
     printf("Is sorted: %d\n", is_sorted(a, n));
-    insertion_sort(a, n);
+    insertion_sort(a,n);
+    quick_sort(a, n);
     printf("After sorting\n");
     printf("Is sorted: %d\n", is_sorted(a, n));
     
