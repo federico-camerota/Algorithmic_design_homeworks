@@ -3,7 +3,7 @@ CCFLAGS= -Wall -Wextra
 searching= search_test.x 
 sorting= sorting_test.x
 SEARCH_FILES= search_algorithms.c
-SORT_FILES= sorting_algorithms.c
+SORT_FILES= sorting_algorithms.c ../04_heap/heaps.c
 
 all: ${searching} ${sorting}
 

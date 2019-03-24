@@ -1,5 +1,6 @@
 #include "sorting_algorithms.h"
 #include <stdint.h>
+#include "../04_heap/heaps.h"
 
 /////////////////////////
 // IS SORTED AUXILIARY FUNCTION
@@ -84,4 +85,23 @@
 	items[lo] = tmp;
 	return j;
     }
-    
+/////////////////////////
+// HEAP SORT
+/////////////////////////
+    void heap_sort (ELEMENT_TYPE *items, size_t n){
+
+	binary_heap *heap = bheap_new(items, n, n);	
+	for (size_t i = n - 1; i > 0; --i)
+	    heap->items[i] = bheap_remove_min(heap);
+
+	size_t i,j;
+	i = 0;
+	j = n-1;
+	
+	while (i < j){
+	    ELEMENT_TYPE tmp = items[i];
+	    items[i] = items[j];
+	    items[j] = tmp;
+	    ++i, --j;
+	}
+    }
