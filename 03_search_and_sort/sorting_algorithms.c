@@ -88,20 +88,13 @@
 /////////////////////////
 // HEAP SORT
 /////////////////////////
+    int max_comp(ELEMENT_TYPE a, ELEMENT_TYPE b){
+    
+	return a > b;
+    }
     void heap_sort (ELEMENT_TYPE *items, size_t n){
 
-	binary_heap *heap = bheap_new(items, n, n);	
+	binary_heap *heap = bheap_new(items,max_comp, n, n);	
 	for (size_t i = n - 1; i > 0; --i)
 	    heap->items[i] = bheap_remove_min(heap);
-
-	size_t i,j;
-	i = 0;
-	j = n-1;
-	
-	while (i < j){
-	    ELEMENT_TYPE tmp = items[i];
-	    items[i] = items[j];
-	    items[j] = tmp;
-	    ++i, --j;
-	}
     }

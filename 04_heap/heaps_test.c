@@ -8,11 +8,11 @@ int main(){
     max = 20;
     N = 10;
     int *items = (int *) calloc(max, sizeof(int));
-    srand(2345);
+    srand(235);
     for (size_t i = 0; i < N; ++i)
 	items[i] = rand() % 40;
 
-    binary_heap *heap = bheap_new (items, max, N);
+    binary_heap *heap = bheap_new (items,NULL, max, N);
 
     for (size_t i = 0; i < N; ++i)
 	printf("%d\t",items[i]);

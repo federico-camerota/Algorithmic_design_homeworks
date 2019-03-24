@@ -11,11 +11,12 @@
 typedef struct {
     size_t max_size;
     size_t current_size;
+    int (*comp_fun)(ITEM_TYPE, ITEM_TYPE);
     ITEM_TYPE *items;
 } binary_heap;
 
 //Function to create a new heap
-binary_heap *bheap_new(ITEM_TYPE *items, size_t max_size, size_t current_size);
+binary_heap *bheap_new(ITEM_TYPE *items,int (*comp_fun)(ITEM_TYPE, ITEM_TYPE) , size_t max_size, size_t current_size);
 //Function to free a binary heap
 void bheap_free(binary_heap *heap);
 //Function to get the left child of a node in a binary heap

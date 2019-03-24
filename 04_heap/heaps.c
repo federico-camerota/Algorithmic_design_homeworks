@@ -5,11 +5,19 @@
 ///////////////////////
 // BHEAP_NEW
 ///////////////////////
-    binary_heap *bheap_new(ITEM_TYPE *items, size_t max_size, size_t current_size){
+    int min_comp (ITEM_TYPE a, ITEM_TYPE b){
+    
+	return a < b;
+    }
+
+    binary_heap *bheap_new(ITEM_TYPE *items,int (*comp_fun)(ITEM_TYPE, ITEM_TYPE) , size_t max_size, size_t current_size){
 
 	binary_heap *new_heap = (binary_heap *) malloc(sizeof(binary_heap));
 	new_heap->max_size = max_size;
 	new_heap->current_size = current_size;
+	new_heap->comp_fun = comp_fun;
+	if (comp_fun == NULL)
+	    new_heap->comp_fun = min_comp;
 	new_heap->items = items;
 	if (new_heap->items == NULL)
 	    new_heap->items = (ITEM_TYPE *) calloc(max_size, sizeof(ITEM_TYPE));
@@ -74,12 +82,12 @@
 	    min_idx = current_parent;
 	    
 	    if (bheap_is_valid_node(heap, left) && 
-		heap->items[left] < heap->items[min_idx])
+		heap->comp_fun(heap->items[left] , heap->items[min_idx]))
 	    {
 		min_idx = left;
 	    }
 	    if (bheap_is_valid_node(heap, right) && 
-		heap->items[right] < heap->items[min_idx])
+		heap->comp_fun(heap->items[right] , heap->items[min_idx]))
 	    {
 		min_idx = right;
 	    }
@@ -99,9 +107,9 @@
 	size_t last_parent = bheap_parent(heap->current_size - 1);
 	for (size_t i = 0; i <= last_parent ; ++i){
 	
-	    if (bheap_is_valid_node(heap, bheap_left(i)) && heap->items[i] > heap->items[bheap_left(i)])
+	    if (bheap_is_valid_node(heap, bheap_left(i)) && heap->comp_fun(heap->items[bheap_left(i)] , heap->items[i]))
 		    return 0;
-	    if (bheap_is_valid_node(heap, bheap_right(i)) && heap->items[i] > heap->items[bheap_right(i)])
+	    if (bheap_is_valid_node(heap, bheap_right(i)) && heap->comp_fun(heap->items[bheap_right(i)], heap->items[i]))
 		    return 0;
 	}
 	return 1;
