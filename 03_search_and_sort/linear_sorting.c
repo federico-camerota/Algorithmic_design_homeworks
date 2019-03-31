@@ -48,7 +48,7 @@
 
 	//sort buckets
 	for (size_t i = 0; i < n; ++i)
-	    insertion_sort(&(buckets[i][0]), buckets_size[i]);
+	    quick_sort(&(buckets[i][0]), buckets_size[i]);
 
 	size_t pos = 0;	
 	for (size_t i = 0; i < n; ++i){
