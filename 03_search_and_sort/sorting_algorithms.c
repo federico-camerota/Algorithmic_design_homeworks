@@ -1,5 +1,6 @@
 #include "sorting_algorithms.h"
 #include <stdint.h>
+#define ITEM_TYPE ELEMENT_TYPE
 #include "../04_heap/heaps.h"
 
 /////////////////////////

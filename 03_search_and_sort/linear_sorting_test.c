@@ -7,19 +7,19 @@
 int main(){
 
     size_t n = 20;
-    int a[n], b[n];
+    double a[n];
     srand(time(NULL));
     printf("Before sorting\n");
     for (size_t i = 0; i < n; ++i){
-	a[i] = 5 + (abs(rand()) % (20));
-	printf("%d\t", a[i]);	
+	a[i] = 1.0 / (5 + (abs(rand()) % (20)));
+	printf("%f\t", a[i]);	
     }
     putchar('\n');
 
-    counting_sort(a,b, n, 5, 24);
+    bucket_sort(a,n);
     printf("After sorting\n");
     for (size_t i = 0; i < n; ++i){
-	printf("%d\t", b[i]);	
+	printf("%f\t", a[i]);	
     }
     putchar('\n');
     
