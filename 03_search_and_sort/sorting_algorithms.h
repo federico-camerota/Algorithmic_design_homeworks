@@ -11,5 +11,6 @@ void insertion_sort (ELEMENT_TYPE *items, size_t n);
 void quick_sort (ELEMENT_TYPE *items, int n);
 void heap_sort (ELEMENT_TYPE *items, size_t n);
 int is_sorted (ELEMENT_TYPE *items, size_t n);
+void counting_sort (int *items, int *sorted_items, size_t n, int lo, int hi);
 
 #endif
