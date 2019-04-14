@@ -70,35 +70,68 @@
 /////////////////////////
 // RADIX SORT
 /////////////////////////
-void radix_sort (INTEGER_TYPE *items, const size_t n, const unsigned digits){
+    void radix_sort_aux (INTEGER_TYPE *items, const size_t n, const unsigned digits, int neg);
 
-    int is_signed = ((INTEGER_TYPE) -1 ) < 0;// check if INTEGER_TYPE is signed
-    if (is_signed){
-    
-	size_t neg_count = 0;
-	for (size_t i = 0; i < n; ++i){
+    void radix_sort (INTEGER_TYPE *items, const size_t n, const unsigned digits){
+
+	int is_signed = ((INTEGER_TYPE) -1 ) < 0;// check if INTEGER_TYPE is signed
+	if (is_signed){
 	
-	    if (items[i] < 0){
+	    size_t neg_count = 0;
+	    for (size_t i = 0; i < n; ++i){
 	    
-		INTEGER_TYPE tmp = items[i];
-		items[i] = items[neg_count];
-		items[neg_count++] = tmp;
+		if (items[i] < 0){
+		
+		    INTEGER_TYPE tmp = items[i];
+		    items[i] = items[neg_count];
+		    items[neg_count++] = tmp;
+		}
 	    }
+
+	    radix_sort_aux (items, neg_count, digits, 1);// sort negative numbers
+	    radix_sort_aux ((items + neg_count), (n - neg_count), digits, 0);//sort positive numbers
+
+	    return;
 	}
 
-	radix_sort_aux (items, neg_count);// sort negative numbers
-	radix_sort_aux ((items + neg_count), (n - neg_count));//sort positive numbers
-
-	for (size_t i = 0; i < neg_count - i - 1; ++i){// revert order of negative numbers
-	
-	    INTEGER_TYPE tmp = items[i];
-	    items[i] = items[neg_count - i - 1];
-	    items[neg_count - i - 1] = tmp;
-	}
-
-	return;
+	radix_sort_aux(items, n, digits, 0);
     }
 
-    radix_sort_aux(items, n);
-}
+    #define COUNT_IDX(i) (items[i]/den)%10 + ((neg) ? 9 : 0)
 
+    void radix_sort_aux (INTEGER_TYPE *items, const size_t n, const unsigned digits, int neg){
+    
+	if ( n > 0){
+	    unsigned d = 0;
+	    INTEGER_TYPE den = 1;
+	    size_t *counts = (size_t *) calloc(10, sizeof(size_t));
+	    INTEGER_TYPE *aux = (INTEGER_TYPE *) calloc( n , sizeof(INTEGER_TYPE));
+
+	    for (int i = 0; i < 10; ++i)
+		counts[i] = 0;
+
+	    while (d < digits){
+	    
+		for (size_t i = 0; i < n; ++i)
+		    counts[COUNT_IDX(i)] += 1;
+		for (int i = 1; i < 10; ++i)
+		    counts[i] += counts[i-1];
+
+		for (size_t j = n-1; j > 0; --j)
+		    aux [--counts[COUNT_IDX(j)]] = items[j];
+		aux [--counts[COUNT_IDX(0)]] = items[0];
+
+		for (size_t j = 0; j < n; ++j)
+		    items[j] = aux[j];
+
+		for (int i = 0; i < 10; ++i)
+		    counts[i] = 0;
+
+		den *= 10; 
+		++d;
+	    }
+
+	    free(aux);
+	    free(counts);
+	}
+    }

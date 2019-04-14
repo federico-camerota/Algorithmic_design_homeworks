@@ -7,19 +7,19 @@
 int main(){
 
     size_t n = 20;
-    double a[n];
+    int a[n];
     srand(time(NULL));
     printf("Before sorting\n");
     for (size_t i = 0; i < n; ++i){
-	a[i] = 1.0 / (5 + (abs(rand()) % (20)));
-	printf("%f\t", a[i]);	
+	a[i] = (200 - (abs(rand()) % (500)));
+	printf("%d\t", a[i]);	
     }
     putchar('\n');
 
-    bucket_sort(a,n);
+    radix_sort(a,n, 3);
     printf("After sorting\n");
     for (size_t i = 0; i < n; ++i){
-	printf("%f\t", a[i]);	
+	printf("%d\t", a[i]);	
     }
     putchar('\n');
     
