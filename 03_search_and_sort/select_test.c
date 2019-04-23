@@ -1,3 +1,4 @@
+#include "select.h"
 #include "sorting_algorithms.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,15 +15,11 @@ int main(){
 	printf("%d\t", a[i]);	
     }
     putchar('\n');
-
-    printf("Before sorting\n");
-    printf("Is sorted: %d\n", is_sorted(a, n));
+    printf("5th element is: %d\n", a[select_alg(a,n, 5)]);
     quick_sort(a, n);
     printf("After sorting\n");
-    printf("Is sorted: %d\n", is_sorted(a, n));
     for (size_t i = 0; i < n; ++i){
 	printf("%d\t", a[i]);	
     }
     putchar('\n');
-    
 }

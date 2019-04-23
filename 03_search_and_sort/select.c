@@ -1,40 +1,69 @@
-#include <select.h>
+#include "select.h"
+#include <math.h>
+#include "sorting_algorithms.h"
 
 size_t select_aux (int *items, const size_t idx, const size_t lo, const size_t hi);
 size_t select_pivot (int *items, const size_t lo, const size_t hi);
-int partition_aux (int *items, int lo, int hi, const size_t pivot);
+size_t partition_aux (int *items, const size_t lo, const size_t hi);
 
 
-size_t select (int * items, const size_t n, const size_t idx){
+size_t select_alg (int * items, const size_t n, const size_t idx){
 
-    return select_aux (items, idx, 0, n - 1);
+    return select_aux (items, idx - 1, 0, n - 1);
 }
 
 
 /////////////////////
 // SELECT AUX
 /////////////////////
-size_t select_aux (int *items, const size_t idx, const size_t lo, const size_t hi){
+    size_t select_aux (int *items, const size_t idx, const size_t lo, const size_t hi){
 
-    size_t k = select_pivot (items, lo, hi);
-    int j = partition_aux (items, lo, hi, k);
+	size_t k = select_pivot (items, lo, hi);
+	size_t j = partition_aux (items, lo, hi);
 
-    if ((
+	if ( j == idx)
+	    return j;
 
+	if (j < idx)
+	    return select_aux (items, idx, j + 1, hi);
+	else
+	    return select_aux (items, idx, 0, j - 1);
+
+
+    }
+
+/////////////////////
+// SELECT PIVOT
+/////////////////////
+size_t select_pivot (int *items, const size_t lo, const size_t hi){
+
+    size_t n = hi - lo + 1;
+    size_t groups = (size_t) floor(n/5.0);
+    size_t last_size = n % 5;
+    
+    for (size_t i = 0; i < groups; ++i){
+    
+	size_t group_lo, group_size;
+	group_lo = lo + 5*i;
+	group_size = (i == groups - 1) ? last_size : 5;
+
+	quick_sort (items + group_lo, group_size);
+	int tmp = items[lo + i];
+	items[lo + i] = items[group_lo + (group_size / 2)];
+	items[group_lo + (group_size / 2)] = tmp;
+    }
+
+    return lo;
 }
-
 
 /////////////////////
 // PARTITION AUX
 /////////////////////
-    int partition_aux (int *items, int lo, int hi, const size_t pivot){
+    size_t partition_aux (int *items, const size_t lo, const size_t hi){
 
-	//use element items[pivot] as pivot, so put it in items[lo] and
+	//use element items[lo] as pivot
 	//partition from lo+1 to hi
-	int tmp = items[pivot];
-	items[pivot] = items[lo];
-	items[lo] = tmp;
-	int i, j;
+	size_t i, j;
 	i = lo + 1;
 	j = hi;
 
@@ -60,7 +89,7 @@ size_t select_aux (int *items, const size_t idx, const size_t lo, const size_t h
 	if (items[j] > items[lo])
 	    --j;
 	//set the pivot in the correct postion by swapping it with items[j]
-	tmp = items[j];
+	int tmp = items[j];
 	items[j] = items[lo];
 	items[lo] = tmp;
 	return j;

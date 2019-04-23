@@ -64,7 +64,7 @@
 	//swap elements in order to arrive at the following situation:
 	//elements lo + 1 to i - 1 are less or equal to the pivot
 	//elements j + 1 to hi are greater than the pivot
-	while ( i <= j ){
+	while ( i < j ){
 	
 	    if (items[i] <= items[lo])
 		++i; //if items[i] is already on the right side increment i
@@ -80,6 +80,8 @@
 		--j;
 	    }
 	}
+	if (items[j] > items[lo])
+	    --j; //if items[j] is already on the right side decrement j
 	//set the pivot in the correct postion by swapping it with items[j]
 	ELEMENT_TYPE tmp = items[j];
 	items[j] = items[lo];
