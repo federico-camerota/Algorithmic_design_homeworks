@@ -19,7 +19,7 @@ size_t select_alg (int * items, const size_t n, const size_t idx){
 /////////////////////
     size_t select_aux (int *items, const size_t idx, const size_t lo, const size_t hi){
 
-	size_t k = select_pivot (items, lo, hi);
+	select_pivot (items, lo, hi);
 	size_t j = partition_aux (items, lo, hi);
 
 	if ( j == idx)
