@@ -7,7 +7,22 @@
 /////////////////////////
 // COUNTING SORT
 /////////////////////////
-    void counting_sort (int *items, int *sorted_items, const size_t n, const int lo, const int hi){
+    void counting_sort_aux (int *items, int *sorted_items, const size_t n, const int lo, const int hi);
+    void counting_sort (int *items, int *sorted_items, const size_t n){
+
+	int min, max;
+	min = max = items[0];
+	size_t i;
+	for ( i=1; i < n; ++i){
+	    
+	    if (items[i] < min)
+		min = items[i];
+	    else if (items[i] > max)
+		max = items[i];
+	}
+	counting_sort_aux (items, sorted_items, n, min, max);
+    }
+    void counting_sort_aux (int *items, int *sorted_items, const size_t n, const int lo, const int hi){
 
 	int k = hi - lo + 1;
 	size_t *c = (size_t *) calloc(k, sizeof(size_t));
@@ -29,12 +44,19 @@
 /////////////////////////
 // BUCKET SORT
 /////////////////////////
+    void get_bucket_dims (size_t* bucket_dims, double *items, const size_t n);
     void bucket_sort (double *items, const size_t n){
 
 	double **buckets = (double **) calloc(n, sizeof(double *));	
 	size_t *buckets_size = (size_t *) calloc(n, sizeof(size_t));
+	for (size_t i = 0; i < n; ++i)
+	    buckets_size[i] = 0;
+
+	//get size of each bucket
+	get_bucket_dims(buckets_size, items, n);
+	
 	for (size_t i = 0; i < n; ++i){
-	    buckets[i] = (double *) calloc(n, sizeof(double));
+	    buckets[i] = (double *) calloc(buckets_size[i], sizeof(double));
 	    buckets_size[i] = 0;
 	}
 
@@ -42,8 +64,10 @@
 	for (size_t i = 0; i < n; ++i){
 
 	    size_t bucket_id = (size_t) floor(items[i]*n);
+	    if (bucket_id == n)
+		bucket_id--;
 	    buckets[bucket_id][buckets_size[bucket_id]] = items[i];
-	    buckets_size[bucket_id]+=1;
+	    buckets_size[bucket_id] += 1;
 	}
 
 	//sort buckets
@@ -67,6 +91,17 @@
 	free(buckets_size);
 	
     }
+    void get_bucket_dims (size_t* bucket_dims, double *items, const size_t n){
+
+	size_t i;
+	for (i = 0; i < n; i++){
+	    size_t bucket_id = (size_t) floor(items[i]*n);
+	    if (bucket_id == n)
+		bucket_id--;
+	    bucket_dims[bucket_id] += 1;
+	}
+    }
+
 /////////////////////////
 // RADIX SORT
 /////////////////////////

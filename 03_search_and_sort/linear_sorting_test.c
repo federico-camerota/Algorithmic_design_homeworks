@@ -8,6 +8,7 @@ int main(){
 
     size_t n = 20;
     int a[n];
+    int b[n];
     srand(time(NULL));
     printf("Before sorting\n");
     for (size_t i = 0; i < n; ++i){
@@ -16,10 +17,11 @@ int main(){
     }
     putchar('\n');
 
-    radix_sort(a,n, 3);
+
+    counting_sort(a,b,n);
     printf("After sorting\n");
     for (size_t i = 0; i < n; ++i){
-	printf("%d\t", a[i]);	
+	printf("%d\t", b[i]);	
     }
     putchar('\n');
     

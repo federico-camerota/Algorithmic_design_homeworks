@@ -1,56 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sorting_algorithms.h"
+#include "linear_sorting.h"
 #include <time.h>
 #include <math.h>
 
 void shuffle(int *array, size_t n);
-void revert(int *array, size_t n);
 
 int main(){
-
-    printf("%-14s\t%-15s\t%-14s\t%-15s\n","quicksort best","quicksort worst","insertion best","insertion worst");
+    printf("%-13s\t%-11s\t%-10s\n","counting sort","bucket sort","radix sort");
     size_t n;
     clock_t start, end;
     double elapsed;
     for (n = 1024; n < 66000; n *= 2){
     
-	int *array = (int *) calloc(n, sizeof(int));
+	int array[n], b[n];
+	double d_array[n];
 	size_t i;
 	for (i = 0; i < n; ++i)
 	    array[i] =  i;
 	shuffle(array, n);
+	for (i = 0; i < n; ++i)
+	    d_array[i] =  1.0/array[i];
 
 	start = clock();
-	best_quick_sort(array, n);
+	counting_sort(array,b, n);
 	end = clock();
 	elapsed = ((double) end - start) / CLOCKS_PER_SEC;
-	printf("%14f\t", elapsed);
+	printf("%13f\t", elapsed);
 
 	start = clock();
-	quick_sort(array,n);	
+	bucket_sort(d_array,n);	
 	end = clock();
 	elapsed = ((double) end - start) / CLOCKS_PER_SEC;
-	printf("%15f\t", elapsed);
+	printf("%11f\t", elapsed);
 
 	start = clock();
-	insertion_sort(array,n);	
+	radix_sort(array,n, 5);	
 	end = clock();
 	elapsed = ((double) end - start) / CLOCKS_PER_SEC;
-	printf("%14f\t", elapsed);
+	printf("%10f\t", elapsed);
 
-	revert(array, n);
-	
-	start = clock();
-	insertion_sort(array,n);	
-	end = clock();
-	elapsed = ((double) end - start) / CLOCKS_PER_SEC;
-	printf("%15f", elapsed);
 	putchar('\n');
-
-	free(array);
     }
 }
+
 
 void shuffle( int *array, size_t n){
 
@@ -60,18 +53,5 @@ void shuffle( int *array, size_t n){
 	int temp = array[i];
 	array[i] = array[rand_idx];
 	array[rand_idx] = temp;
-    }
-}
-void revert(int *array, size_t n){
-    
-    size_t i, j;
-    i = 0; 
-    j = n-1;
-    while (i < j){
-	int temp = array[i];
-	array[i] = array[j];
-	array[j] = temp;
-	i++;
-	j--;
     }
 }
