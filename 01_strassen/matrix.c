@@ -44,7 +44,7 @@ SCALAR_TYPE **allocate_matrix(const size_t rows,
 
    return A;
 }
-void deallocate_matrix(SCALAR_TYPE **A, const size_t rows)
+void deallocate_matrix(void **A, const size_t rows)
 {
   for (size_t i=0; i<rows; i++) {
     free(A[i]);
@@ -65,7 +65,7 @@ SCALAR_TYPE **improved_allocate_matrix(const size_t rows,
 
    return A;
 }
-void improved_deallocate_matrix(SCALAR_TYPE **A)
+void improved_deallocate_matrix(void **A)
 {
   free(A[0]);
   free(A);

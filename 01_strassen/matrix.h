@@ -17,8 +17,8 @@ SCALAR_TYPE **allocate_matrix(const size_t rows,
                         const size_t cols);
 SCALAR_TYPE **improved_allocate_matrix(const size_t rows,
 				 const size_t cols);
-void deallocate_matrix(SCALAR_TYPE **A, const size_t rows);
-void improved_deallocate_matrix(SCALAR_TYPE **A);
+void deallocate_matrix(void **A, const size_t rows);
+void improved_deallocate_matrix(void **A);
 
 int same_matrix(SCALAR_TYPE **A, const size_t A_rows, const size_t A_cols,
 		SCALAR_TYPE **B, const size_t B_rows, const size_t B_cols);

@@ -3,6 +3,6 @@
 
 #include <stdlib.h>
 
-void matrix_chain (int *p, size_t n, size_t **m, size_t **s);
+void matrix_chain (size_t *p, size_t n, size_t **m, size_t **s);
 
 #endif

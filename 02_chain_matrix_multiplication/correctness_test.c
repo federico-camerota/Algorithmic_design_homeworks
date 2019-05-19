@@ -4,8 +4,8 @@
 
 int main(){
 
-    size_t n = 6;
-    int p[7] = {30, 35, 15, 5, 10, 20, 25};
+    size_t n = 4;
+    size_t p[5] = {3, 5, 10, 2 , 3};
     size_t **m = improved_allocate_matrix(n,n);
     size_t **s = improved_allocate_matrix(n, n);
 
@@ -21,15 +21,15 @@ int main(){
 	putchar('\n');
     }
     printf("S matrix:\n");
-    for (size_t i = 0; i < n - 1; ++i){
+    for (size_t i = 0; i < n ; ++i){
     
-	for (size_t j = 0; j < n - 1; ++j){
+	for (size_t j = 0; j < n ; ++j){
 	
 	   printf("%lu\t", s[i][j]); 
 	}
 	putchar('\n');
     }
 
-    improved_deallocate_matrix(m);
-    improved_deallocate_matrix(s);
+    improved_deallocate_matrix( (void **) m);
+    improved_deallocate_matrix( (void **)s);
 }

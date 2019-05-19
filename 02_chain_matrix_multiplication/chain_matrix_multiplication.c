@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j);
+void chain_matrix_aux (size_t *p, size_t **m, size_t **s, size_t i, size_t j);
 
-void matrix_chain (int *p, size_t n, size_t **m, size_t **s){
+void matrix_chain (size_t *p, size_t n, size_t **m, size_t **s){
 
     for (size_t i=0; i < n; ++i){
     
@@ -21,7 +21,7 @@ void matrix_chain (int *p, size_t n, size_t **m, size_t **s){
     }
 }
 
-void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j){
+void chain_matrix_aux (size_t *p, size_t **m, size_t **s, size_t i, size_t j){
 
     m[i][j] = SIZE_MAX;
     for (size_t k = i; k < j; ++k){
@@ -30,7 +30,7 @@ void chain_matrix_aux (int *p, size_t **m, size_t **s, size_t i, size_t j){
 	if ( q < m[i][j]){
 	
 	    m[i][j] = q;
-	    s[i][j-1] = k+1;
+	    s[i][j] = k;
 	}
     }
 }

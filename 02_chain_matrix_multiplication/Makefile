@@ -1,5 +1,5 @@
 CC= gcc
-CCFLAGS= -Wall -Wextra
+CCFLAGS= -Wall -Wextra -ggdb
 complexity= complexity_test.x 
 correctness= correctness_test.x
 MATRIX_AUX= ../01_strassen/matrix.c
