@@ -18,8 +18,11 @@ int main(){
 	for (j = 0; j < 6; ++j)
 	    adjmat[i][j] = mat[i][j];
     
-
+#ifdef ARRAY
     graph_node *result = array_dijkstra((double **) adjmat, 6, 0);
+#else 
+    graph_node *result = heap_dijkstra((double **) adjmat, 6, 0);
+#endif
 
     for (i = 0; i < 6; ++i){
 	printf("Node %lu distance: %lf\nPath: ", i+1, result[i].d);

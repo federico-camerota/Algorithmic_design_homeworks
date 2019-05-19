@@ -89,7 +89,6 @@
 	graph_node *nodes = (graph_node *) calloc(n, sizeof(graph_node));
 	init_array(nodes, n, source);
 	graph_node **nodes_index = (graph_node **) calloc(n, sizeof(graph_node*));
-	size_t index_size = n;
 	size_t i;
 	for (i = 0; i < n; ++i)
 	    nodes_index[i] = &(nodes[i]);
