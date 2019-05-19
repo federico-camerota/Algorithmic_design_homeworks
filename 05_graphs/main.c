@@ -26,6 +26,9 @@ int main(){
 	print_path(&result[i]);
     }
 
+    for (j = 0; j < 6; ++j)
+	free(adjmat[j]);
+    free(adjmat);
     free(result);
 }
 
