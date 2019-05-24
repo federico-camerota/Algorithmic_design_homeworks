@@ -92,7 +92,7 @@
 /////////////////////////
 // BEST QUICK SORT
 /////////////////////////
-    size_t select_pivot (ELEMENT_TYPE *items, const size_t lo, const size_t hi){
+    size_t qsort_select_pivot (ELEMENT_TYPE *items, const size_t lo, const size_t hi){
 	size_t n = hi - lo + 1;
 	size_t groups = (size_t) floor(n/5.0);
 	size_t last_size = n % 5;
@@ -133,7 +133,7 @@
 
 	//use element items[lo] as pivot
 	//partition from lo+1 to hi
-	select_pivot(items, lo, hi);// put median value at the beginning
+	qsort_select_pivot(items, lo, hi);// put median value at the beginning
 	int i, j;
 	i = lo + 1;
 	j = hi;

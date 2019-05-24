@@ -14,7 +14,7 @@ DEV_FLAGS = -ggdb
 sorting_benchmark=sorting_benchmark.x
 linear_sorting_benchmark=linear_sorting_benchmark.x
 
-all:  ${sorting_benchmark} ${linear_sorting_benchmark} 
+all:  ${sorting_benchmark} ${linear_sorting_benchmark} ${selection}
 
 sort : ${sorting}
 

@@ -7,14 +7,17 @@
 void shuffle(int *array, size_t n);
 
 int main(){
-    printf("%-13s\t%-11s\t%-10s\n","counting sort","bucket sort","radix sort");
+    printf("%10s\t%13s\t%11s\t%10s\n","array size", "counting sort","bucket sort","radix sort");
     size_t n;
     clock_t start, end;
     double elapsed;
-    for (n = 1024; n < 66000; n *= 2){
+    for (n = 64; n < 10E6; n *= 2){
     
-	int array[n], b[n];
-	double d_array[n];
+	printf("%-10ld\t", n);
+	int *array, *b;
+	array = calloc(n, sizeof(int));
+	b = calloc(n, sizeof(int));
+	double *d_array = calloc(n, sizeof(double));
 	size_t i;
 	for (i = 0; i < n; ++i)
 	    array[i] =  i;
@@ -41,6 +44,9 @@ int main(){
 	printf("%10f\t", elapsed);
 
 	putchar('\n');
+	free(array);
+	free(d_array);
+	free(b);
     }
 }
 
