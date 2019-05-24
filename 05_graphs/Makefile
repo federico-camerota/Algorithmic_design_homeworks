@@ -1,5 +1,5 @@
 CC= gcc
-CCFLAGS= -Wall -Wextra -lm
+CCFLAGS= -Wall -Wextra -lm -ggdb
 
 FILES = dijkstra.c heaps.c
 heap_dijkstra=heap_dijkstra.x

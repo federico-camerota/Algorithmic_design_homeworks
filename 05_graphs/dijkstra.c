@@ -23,7 +23,8 @@
 
 	size_t min = source;
 	nodes_index[source] = nodes_index[index_size - 1];
-	while (min != index_size){
+	nodes_index[source]->pos = source;
+	while (index_size > 0){
 	
 	    size_t i;
 	    for (i = 0; i < n; ++i){
@@ -32,9 +33,12 @@
 		    relax(nodes, min, i, adj_matrix[min][i]);
 	    }
 
-	    index_size--;
-	    min = get_min_node(nodes_index, index_size);
-	    nodes_index[min]= nodes_index[index_size - 1];
+	    if (--index_size){
+		min = get_min_node(nodes_index, index_size);
+		size_t min_pos = nodes[min].pos;
+		nodes_index[min_pos]= nodes_index[index_size - 1];
+		nodes_index[min_pos]->pos = min_pos;
+	    }
 	}
 	return nodes;
     }
@@ -63,17 +67,19 @@
 
     size_t get_min_node (graph_node **node_array, const size_t n){
 
-	size_t min_idx = n;
-	double min_val = DBL_MAX;
+	size_t min_idx = 0;
+	double min_val = node_array[0]->d;
 
 	size_t i;
-	for ( i = 0; i < n; ++i){
+	for ( i = 1; i < n; ++i){
 	
-	    if ((node_array[i])->d < min_val)
+	    if ((node_array[i])->d < min_val){
 		min_idx = i;
+		min_val = node_array[i]->d;
+	    }
 	}
 
-	return (min_idx != n) ? node_array[min_idx]->id : n;
+	return node_array[min_idx]->id;
     }
 //////////////////
 // HEAP DIJKSTRA
